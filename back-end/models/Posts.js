@@ -13,5 +13,11 @@ const Posts = sequelize.define("Posts",{
         allowNull: false,
     },
 });
-return Posts
-}
+
+Posts.associate = (models) => {
+    Posts.hasMany(models.Comments,{
+        onDelete:"cascade",
+    });
+};
+return Posts;
+};

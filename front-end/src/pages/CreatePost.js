@@ -2,9 +2,10 @@ import React from "react";
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import * as Yup from 'yup';
 import axios from "axios";
-
+import {useNavigate} from "react-router-dom";
 
 function CreatePost(){
+    const navigate = useNavigate();
 
     const initialValues = {
         title:"",
@@ -20,8 +21,7 @@ function CreatePost(){
 
     const onSubmit=(data)=> {
         axios.post("http://localhost:3001/posts",data).then((response) => {
-            
-        console.log(response.data);
+            navigate("/");
         });
     };
     return (
@@ -33,13 +33,13 @@ function CreatePost(){
          validationSchema={validationSchema}>
          <Form className="formCont">
              <label>Title:</label>
-             <ErrorMessage name ="title" element= "span"/>
+             <ErrorMessage name ="title" component= "span"/>
              <Field  id="inputCreatePost" name="title" placeholder="Ex. Title.." />
              <label>Post:</label>
-             <ErrorMessage name ="text" element= "span"/>
+             <ErrorMessage name ="text" component= "span"/>
              <Field  id="inputCreatePost" name="text" placeholder="Ex. Post.." />
              <label>Username:</label>
-             <ErrorMessage name ="username" element= "span"/>
+             <ErrorMessage name ="username" component= "span"/>
              <Field  id="inputCreatePost" name="username" placeholder="Ex. Kiki.." />
              <button type="submit">Create Post</button>
          </Form>
