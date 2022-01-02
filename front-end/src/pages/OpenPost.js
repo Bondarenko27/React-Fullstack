@@ -15,17 +15,18 @@ function OpenPost(){
         axios.get(`http://localhost:3001/comments/${id}`).then((response) => {
             setComments(response.data);
         });
-        const addComment=()=>{
-            axios.post("http://localhost:3001/comments",{commentBody: newComment,PostId:id })
-            .then((response)=> {
-                const commentToAdd={commentBody:newComment}
-                setComments([...comments,commentToAdd]);
-                setNewComment("")
-         } );
-
-        };
+       
 
     }, []);
+    const AddComment = () => {
+        axios.post("http://localhost:3001/comments",{commentBody: newComment,PostId:id })
+        .then((response)=> {
+            const commentToAdd={commentBody:newComment}
+            setComments([...comments,commentToAdd]);
+            setNewComment("")
+     } );
+
+    };
 
     return <div className="postPage">
         <div className="leftSide"></div>
@@ -37,7 +38,7 @@ function OpenPost(){
                 <input type="text" placeholder="Comment.."
                 value={newComment} 
                 autoComplete="off" onChange={(event) => {setNewComment(event.target.value)}}/>
-                <button onClick={addComment}>Add Comments</button>
+                <button onClick={AddComment}>Add Comments</button>
                 </div> 
             <div className="listOfComments">
               {comments.map((comment,key) =>{
