@@ -18,7 +18,9 @@ function OpenPost(){
         const addComment=()=>{
             axios.post("http://localhost:3001/comments",{commentBody: newComment,PostId:id })
             .then((response)=> {
-            console.log("comment added!");
+                const commentToAdd={commentBody:newComment}
+                setComments([...comments,commentToAdd]);
+                setNewComment("")
          } );
 
         };
@@ -32,7 +34,8 @@ function OpenPost(){
         <div className="username">{postObject.username}</div>
         <div className="rightSide">
             <div className="addCommentContainer">
-                <input type="text" placeholder="Comment.." 
+                <input type="text" placeholder="Comment.."
+                value={newComment} 
                 autoComplete="off" onChange={(event) => {setNewComment(event.target.value)}}/>
                 <button onClick={addComment}>Add Comments</button>
                 </div> 
